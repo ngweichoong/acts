@@ -1,4 +1,4 @@
-
+﻿
 :root {
   --cream: #fffaf2;
   --orange: #f29152;
@@ -117,7 +117,7 @@ button { font: inherit; }
   overflow: hidden;
   background:
     linear-gradient(90deg, rgba(5,58,67,.96) 0%, rgba(5,58,67,.92) 18%, rgba(5,58,67,.74) 33%, rgba(5,58,67,.18) 56%, rgba(5,58,67,.06) 100%),
-    url("/assets/hero-bg-v2.jpg") center center / cover no-repeat;
+    url("assets/hero-bg-v2.jpg") center center / cover no-repeat;
 }
 .hero::before {
   content: "";
@@ -320,7 +320,7 @@ button { font: inherit; }
 .event-image {
   align-self: stretch;
   min-height: 99px;
-  background: url("/assets/event-rawang-v2.jpg") center center / cover no-repeat;
+  background: url("assets/event-rawang-v2.jpg") center center / cover no-repeat;
 }
 .event-date {
   text-align: center;
@@ -441,7 +441,7 @@ button { font: inherit; }
     min-height: 560px;
     background:
       linear-gradient(180deg, rgba(5,58,67,.92) 0%, rgba(5,58,67,.78) 52%, rgba(5,58,67,.46) 100%),
-      url("/assets/hero-bg-v2.jpg") 68% center / cover no-repeat;
+      url("assets/hero-bg-v2.jpg") 68% center / cover no-repeat;
   }
   .hero-content {
     width: calc(100% - 32px);
@@ -489,3 +489,4 @@ button { font: inherit; }
 }
 
 .register-btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;}
+
