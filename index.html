@@ -148,11 +148,22 @@
           <p>留下一句話、活動感想，或想對小組說的話。</p>
         </div>
 
-        <div class="comments-actions">
-          <a class="comments-submit" href="https://github.com/ngweichoong/acts/issues/2#new_comment_field" target="_blank" rel="noopener">我要留言 →</a>
-          <button class="comments-refresh" id="comments-refresh" type="button">重新載入留言</button>
-          <p class="comments-note">留言會儲存在 GitHub Issue，需要登入 GitHub。送出後回到此頁重新載入即可看到。</p>
-        </div>
+        <form class="comments-form" id="comments-form">
+          <label>
+            暱稱
+            <input type="text" name="name" maxlength="20" autocomplete="nickname" placeholder="你的名字或暱稱" required>
+          </label>
+
+          <label>
+            留言
+            <textarea name="message" maxlength="300" placeholder="寫下你想分享的內容……" required></textarea>
+          </label>
+
+          <div class="comments-form-footer">
+            <p class="comments-status" id="comments-status" aria-live="polite"></p>
+            <button class="comments-submit" id="comments-submit" type="submit">送出留言</button>
+          </div>
+        </form>
 
         <div class="comments-list" id="comments-list" aria-live="polite">
           <p class="comments-empty">正在載入留言……</p>
