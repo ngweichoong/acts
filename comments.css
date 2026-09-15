@@ -8,7 +8,7 @@
 }
 .comments-heading {
   text-align: center;
-  margin-bottom: 26px;
+  margin-bottom: 22px;
 }
 .comments-heading h2 {
   margin: 0 0 8px;
@@ -20,101 +20,102 @@
   color: var(--muted);
   line-height: 1.7;
 }
-.comments-form {
-  display: grid;
-  gap: 14px;
-  padding: 22px;
-  border-radius: 18px;
-  background: rgba(255,255,255,.92);
-  border: 1px solid rgba(8,63,72,.07);
-  box-shadow: 0 14px 34px rgba(63,50,33,.06);
-}
-.comments-form label {
-  display: grid;
-  gap: 7px;
-  color: var(--ink);
-  font-size: 14px;
-  font-weight: 800;
-}
-.comments-form input,
-.comments-form textarea {
-  width: 100%;
-  border: 1px solid rgba(8,63,72,.16);
-  border-radius: 12px;
-  background: #fff;
-  color: var(--ink);
-  padding: 12px 14px;
-  font: inherit;
-  outline: none;
-  transition: border-color .18s ease, box-shadow .18s ease;
-}
-.comments-form textarea {
-  min-height: 120px;
-  resize: vertical;
-  line-height: 1.6;
-}
-.comments-form input:focus,
-.comments-form textarea:focus {
-  border-color: #ee874f;
-  box-shadow: 0 0 0 3px rgba(238,135,79,.12);
-}
-.comments-form-footer {
+.comments-actions {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 14px;
+  justify-content: center;
+  gap: 12px;
   flex-wrap: wrap;
+  margin-bottom: 24px;
 }
-.comments-status {
-  min-height: 20px;
-  margin: 0;
-  color: #5f7c7f;
-  font-size: 13px;
-}
-.comments-status.error { color: #b34d3a; }
-.comments-submit {
+.comments-submit,
+.comments-refresh {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 0;
   border-radius: 999px;
   padding: 11px 22px;
-  color: #fff;
+  font: inherit;
   font-weight: 800;
   cursor: pointer;
+  text-decoration: none;
+}
+.comments-submit {
+  color: #fff;
   background: linear-gradient(135deg, #f19a58, #eb7d42);
   box-shadow: 0 8px 20px rgba(235,125,66,.18);
 }
-.comments-submit:disabled {
-  opacity: .6;
+.comments-refresh {
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid rgba(8,63,72,.12);
+}
+.comments-refresh:disabled {
+  opacity: .55;
   cursor: wait;
+}
+.comments-note {
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: #7f8f91;
+  font-size: 12px;
+  line-height: 1.6;
 }
 .comments-list {
   display: grid;
   gap: 12px;
-  margin-top: 24px;
 }
 .comment-card {
   padding: 18px 20px;
   border-radius: 15px;
-  background: rgba(255,255,255,.9);
+  background: rgba(255,255,255,.92);
   border: 1px solid rgba(8,63,72,.06);
   box-shadow: 0 8px 24px rgba(63,50,33,.04);
 }
 .comment-card-header {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
 }
-.comment-card-header strong {
+.comment-identity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.comment-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #f1eee8;
+  flex: 0 0 auto;
+}
+.comment-identity strong,
+.comment-identity time {
+  display: block;
+}
+.comment-identity strong {
   color: var(--ink);
   font-size: 15px;
+  overflow-wrap: anywhere;
 }
-.comment-card-header time {
+.comment-identity time {
+  margin-top: 2px;
   color: #91a0a2;
   font-size: 12px;
-  white-space: nowrap;
 }
-.comment-card p {
-  margin: 9px 0 0;
+.comment-source {
+  flex: 0 0 auto;
+  color: #e6814c;
+  font-size: 12px;
+  font-weight: 800;
+}
+.comment-card > p {
+  margin: 12px 0 0;
   color: #536d70;
   line-height: 1.7;
   white-space: pre-wrap;
@@ -127,10 +128,13 @@
   color: #869597;
   border: 1px dashed rgba(8,63,72,.14);
   border-radius: 14px;
+  background: rgba(255,255,255,.48);
 }
 @media (max-width: 600px) {
   .comments-section { padding: 42px 0 48px; }
   .comments-shell { width: calc(100% - 28px); }
-  .comments-form { padding: 18px; }
-  .comment-card-header { align-items: flex-start; flex-direction: column; gap: 4px; }
+  .comments-heading h2 { font-size: 26px; }
+  .comments-submit,
+  .comments-refresh { width: 100%; }
+  .comment-card-header { align-items: flex-start; }
 }
