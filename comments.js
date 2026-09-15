@@ -3,7 +3,7 @@ const commentsList = document.querySelector("#comments-list");
 const commentsStatus = document.querySelector("#comments-status");
 const commentsSubmit = document.querySelector("#comments-submit");
 
-const COMMENTS_API_BASE = "__COMMENTS_API_BASE__";
+const COMMENTS_API_BASE = "https://acts-comments-api-production.up.railway.app";
 
 function setStatus(message, isError = false) {
   if (!commentsStatus) return;
@@ -108,10 +108,10 @@ commentsForm?.addEventListener("submit", async (event) => {
     });
 
     const data = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(data.error || "留言送出失敗。 ");
+    if (!response.ok) throw new Error(data.error || "留言送出失敗。");
 
     commentsForm.reset();
-    setStatus("留言已送出。 ");
+    setStatus("留言已送出。");
     await loadComments();
   } catch (error) {
     setStatus(error.message || "留言送出失敗。", true);
