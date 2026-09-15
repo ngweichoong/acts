@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hmac
 import os
 import threading
 import time
@@ -12,6 +13,7 @@ from psycopg.rows import dict_row
 
 ROOT = Path(__file__).resolve().parent
 DATABASE_URL = os.getenv("DATABASE_URL", "")
+ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")
 ALLOWED_ORIGINS = [
     origin.strip()
     for origin in os.getenv(
@@ -28,7 +30,8 @@ app = Flask(__name__, static_folder=None)
 CORS(
     app,
     resources={r"/api/*": {"origins": ALLOWED_ORIGINS}},
-    methods=["GET", "POST", "OPTIONS"],
+    methods=["GET", "POST", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"],
 )
 
 _schema_lock = threading.Lock()
@@ -116,6 +119,16 @@ def serialize_comment(row):
     }
 
 
+def admin_authorized():
+    if not ADMIN_TOKEN:
+        return False
+    auth = request.headers.get("Authorization", "")
+    if not auth.startswith("Bearer "):
+        return False
+    supplied = auth[7:].strip()
+    return bool(supplied) and hmac.compare_digest(supplied, ADMIN_TOKEN)
+
+
 @app.after_request
 def security_headers(response):
     response.headers["X-Content-Type-Options"] = "nosniff"
@@ -196,6 +209,28 @@ def create_comment():
             comment = serialize_comment(cur.fetchone())
 
     return jsonify({"comment": comment}), 201
+
+
+@app.delete("/api/comments/<int:comment_id>")
+def delete_comment(comment_id: int):
+    if not ADMIN_TOKEN:
+        return jsonify({"error": "管理功能尚未設定。"}), 503
+    if not admin_authorized():
+        return jsonify({"error": "管理驗證失敗。"}), 401
+
+    ensure_schema()
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "DELETE FROM comments WHERE id = %s RETURNING id",
+                (comment_id,),
+            )
+            deleted = cur.fetchone()
+
+    if not deleted:
+        return jsonify({"error": "找不到這則留言。"}), 404
+
+    return jsonify({"deleted": deleted["id"]})
 
 
 @app.get("/")
