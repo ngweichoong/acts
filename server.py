@@ -91,6 +91,10 @@ class Handler(SimpleHTTPRequestHandler):
             self.send_json({"error": "留言格式不正確。"}, status=400)
             return
 
+        if not isinstance(payload, dict):
+            self.send_json({"error": "留言格式不正確。"}, status=400)
+            return
+
         name = str(payload.get("name", "")).strip()
         message = str(payload.get("message", "")).strip()
 
@@ -119,8 +123,7 @@ class Handler(SimpleHTTPRequestHandler):
         self.send_json({"comment": comment}, status=201)
 
     def end_headers(self):
-        if not any(header.lower() == "cache-control" for header, _ in getattr(self, "_headers_buffer", [])):
-            self.send_header("Cache-Control", "no-store")
+        self.send_header("Cache-Control", "no-store")
         super().end_headers()
 
 
